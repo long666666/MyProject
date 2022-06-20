@@ -1,0 +1,45 @@
+{% extends 'mobile/base.html' %}
+{% load static %}
+
+{% block mainbody %}
+    <!--头部-->
+    <header>
+        <div class="header">
+            <h1>切换店铺</h1>
+            <a href="{% url 'mobile_index' %}" class="return"><i></i></a>
+        </div>
+    </header>
+
+    <!--内容区-->
+    <article class="main-container">
+
+        <!--产品-->
+        <div class="list-content cartlist order-Pro">
+            <ul>
+                {% for shop in shoplist %}
+                    <li class="line select">
+                        <a href="{% url 'mobile_index' %}?sid={{ shop.id }}">
+                            <div class="pro-img"><img src="{% static 'uploads/shop/' %}{{ shop.cover_pic }}" alt="">
+                            </div>
+                            <div class="pro-con"><h3>{{ shop.name }}</h3>
+                                <p style="margin-left: 10px">
+                                    电话：{{ shop.phone }}&nbsp;&nbsp;
+                                    地址：{{ shop.address }}
+                                </p>
+                            </div>
+                            <div style="margin-top: 5px">
+                                {% if shop.status == 1 %}
+                                    <h3 style="color: green">营业中...</h3>
+                                {% elif shop.status == 2 %}
+                                    <h3 style="color: red">休息中...</h3>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </article>
+{% endblock %}
+
